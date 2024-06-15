@@ -6,11 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit</title>
     <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/my-element.js"></script>
+    <script type="module" src="/src/components/sell-item.js"></script>
+    <script type="module" src="/src/components/todo-list.js"></script>
+    <style>
+      .sell-items-container {
+          display: flex;
+          flex-wrap: wrap;
+      }
+    </style>
   </head>
   <body>
-    <my-element>
-      <h1>Vite + Lit</h1>
-    </my-element>
+    <ul is="todo-list" item1="Prueba 1" item2="Prueba 2" item3="Prueba 3" title="Cosas que hacer"></ul>
+    <div class="sell-items-container">
+      <sell-item name="Producto 1" price=1000 discount=90></sell-item>
+      <sell-item name="Producto 2" price=900 discount=10></sell-item>
+      <sell-item name="Producto 3" price=1000 discount=20></sell-item>
+    </div>
   </body>
 </html>
