@@ -40,7 +40,7 @@ export class SellItem extends LitElement {
             }
             :host {
                 display: block;
-                margin: 1rem; /* Ajusta el margen según tus necesidades */
+                margin: 1rem;
             }
         `;
     }
