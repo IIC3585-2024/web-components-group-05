@@ -15,9 +15,10 @@ export class PriceItem extends LitElement {
     }
 
     render() {
+        console.log(this.price)
         return html`
             <div class="priceCard">
-                <h3>$${(this.price - this.discount/100 * this.price)}</h3>
+                <h3>$${(this.price - this.discount/100 * this.price).toFixed(2)}</h3>
                 <h3 class="discount">${this.discount}%</h3>
             </div>
             <div class="priceCard">

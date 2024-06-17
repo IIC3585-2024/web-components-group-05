@@ -32,6 +32,7 @@ export class TodoList extends HTMLUListElement {
         this.innerHTML = '';
         const title = document.createElement('h1');
         title.textContent = this.title;
+        title.style.color = 'white';
         this.appendChild(title);
         this.renderTodo();
         this.renderInput();
@@ -39,9 +40,9 @@ export class TodoList extends HTMLUListElement {
 
     renderTodo() {
         this.todos.forEach((todo) => {
-            const li = document.createElement('li', { is: 'todo-item' });
-            li.setAttribute('text', todo.text);
-            this.appendChild(li);
+            const todoItem = document.createElement('todo-item');
+            todoItem.setAttribute('text', todo.text);
+            this.appendChild(todoItem);
         });
     }
 
