@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit</title>
     <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/components/lit/sell-item.js"></script>
+    <script type="module" src="/src/components/lit/list.js"></script>
     <script type="module" src="/src/components/standard/sell-item.js"></script>
     <script type="module" src="/src/components/standard/list.js"></script>
-    <script type="module" src="/src/components/todo-list.js"></script>
+    <script type="module" src="/src/components/standard/todo-list.js"></script>
     <script type="module" src="/src/fetchProducts.js"></script>
     <style>
       .sell-items-container {
         display: flex;
-        flex-wrap: wrap;
       }
       .title {
         text-align: center;
@@ -29,12 +28,11 @@
       item1="Prueba 1"
       item2="Prueba 2"
       item3="Prueba 3"
-      title="Cosas que hacer"
+      title="Todo List web components standard"
     ></ul>
+    <h1 class="title">Lista de productos web components Lit</h1>
     <div class="sell-items-container">
-      <sell-item name="Producto 1" price="1000" discount="90"></sell-item>
-      <sell-item name="Producto 2" price="900" discount="10"></sell-item>
-      <sell-item name="Producto 3 lit" price="900" discount="10"></sell-item>
+      <list-lit></list-lit>
     </div>
     <h1 class="title">Lista de productos web components standard</h1>
     <list-standard></list-standard>
