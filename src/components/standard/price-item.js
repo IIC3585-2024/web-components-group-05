@@ -48,7 +48,6 @@ export class PriceItemStandard extends HTMLElement {
     const discountedPrice = price - (price * discount) / 100;
 
     this.shadowRoot.querySelector(".discount").textContent = `${discount}%`;
-    console.log(price.toFixed(2), price);
     this.shadowRoot.querySelector(
         ".normalPrice"
       ).innerHTML = `Precio normal: <s>$${price.toFixed(2)}</s>`;

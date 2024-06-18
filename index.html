@@ -11,6 +11,7 @@
     <script type="module" src="/src/components/standard/list.js"></script>
     <script type="module" src="/src/components/standard/todo-list.js"></script>
     <script type="module" src="/src/fetchProducts.js"></script>
+    <script type="module" src="/src/fetchTodo.js"></script>
     <style>
       .title {
         text-align: center;
@@ -20,13 +21,10 @@
     </style>
   </head>
   <body>
-    <ul
-      is="todo-list"
-      item1="Prueba 1"
-      item2="Prueba 2"
-      item3="Prueba 3"
+    <todo-list-standard
       title="Todo List web components standard"
-    ></ul>
+      prompt="Add a new task"
+    ></todo-list-standard>
     <h1 class="title">Lista de productos web components Lit</h1>
     <list-lit></list-lit>
     <h1 class="title">Lista de productos web components standard</h1>

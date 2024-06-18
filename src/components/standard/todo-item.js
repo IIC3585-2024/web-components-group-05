@@ -27,7 +27,7 @@ template.innerHTML = `
     </div>
 `;
 
-export class TodoItem extends HTMLElement {
+export class TodoItemStandard extends HTMLElement {
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: "open" });
@@ -47,8 +47,12 @@ export class TodoItem extends HTMLElement {
   }
 
   deleteTodo() {
+    const event = new CustomEvent('delete-todo', {
+      detail: { id: this.getAttribute('id') },
+    });
+    this.dispatchEvent(event);
     this.remove();
   }
 }
 
-customElements.define('todo-item', TodoItem);
+customElements.define('todo-item-standard', TodoItemStandard);

@@ -1,63 +1,81 @@
-import './todo-item.js';
+import "./todo-item.js";
 
-export class TodoList extends HTMLUListElement {
-    constructor() {
-        super();
-        this.todos = [];
-        this.title = 'Todo List';
-        this.prompt = 'Add a new todo';
+const template = document.createElement("template");
+template.innerHTML = `
+    <h1></h1>
+    <div>
+      <input type="text">
+      <button>Add</button>
+    </div>
+    <div id="todos"></div>
+`;
+
+export class TodoListStandard extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.appendChild(template.content.cloneNode(true));
+  }
+
+  static get observedAttributes() {
+    return ["items", "title", "prompt"];
+  }
+  
+  connectedCallback() {
+    this.shadowRoot.querySelector("button").addEventListener("click", () => this.addTodo());
+    this.shadowRoot.querySelector("input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        this.addTodo();
+      }
+    });
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "title") {
+      this.shadowRoot.querySelector("h1").textContent = newValue || "Todo List";
     }
 
-    static get observedAttributes() {
-        return ['item1', 'item2', 'item3', 'title', 'prompt'];
+    if (name === "prompt") {
+      this.shadowRoot.querySelector("input").placeholder = newValue || "Enter a new todo";
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (["item1", "item2", "item3"].includes(name) && newValue) {
-            this.todos.push({ text: newValue });
-        }
-        if (name === 'title' && newValue) {
-            this.title = newValue;
-        }
-        if (name === 'prompt' && newValue) {
-            this.prompt = newValue;
-        }
+    if (name === "items") {
+      this.renderTodos();
     }
+  }
 
-    connectedCallback() {
-        this.render();
-    }
+  addTodo() {
+    const todoInput = this.shadowRoot.querySelector("input");
+    const todoText = todoInput.value;
+    todoInput.value = "";
 
-    render() {
-        this.innerHTML = '';
-        const title = document.createElement('h1');
-        title.textContent = this.title;
-        title.style.color = 'white';
-        this.appendChild(title);
-        this.renderTodo();
-        this.renderInput();
-    }
+    const todos = JSON.parse(this.getAttribute("items")) || [];
+    const newTodo = { id: Date.now().toString(), text: todoText };
+    todos.push(newTodo);
+    this.setAttribute("items", JSON.stringify(todos));
+    this.renderTodos();
+  }
 
-    renderTodo() {
-        this.todos.forEach((todo) => {
-            const todoItem = document.createElement('todo-item');
-            todoItem.setAttribute('text', todo.text);
-            this.appendChild(todoItem);
-        });
-    }
+  deleteTodo(id) {
+    const todos = JSON.parse(this.getAttribute("items")) || [];
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
+    this.setAttribute("items", JSON.stringify(filteredTodos));
+    this.renderTodos();
+  }
 
-    renderInput() {
-        const input = document.createElement('input');
-        input.style.marginTop = '1.5rem';
-        input.setAttribute('placeholder', this.prompt);
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.todos.push({ text: e.target.value });
-                this.render();
-            }
-        });
-        this.appendChild(input);
-    }
+
+  renderTodos() {
+    const todos = JSON.parse(this.getAttribute("items")) || [];
+    const todoContainer = this.shadowRoot.querySelector("#todos");
+    todoContainer.innerHTML = "";
+
+    todos.forEach((todo) => {
+      const todoItem = document.createElement("todo-item-standard");
+      todoItem.setAttribute("id", todo.id);
+      todoItem.setAttribute("text", todo.text);
+      todoItem.addEventListener("delete-todo", () => this.deleteTodo(todo.id));
+      todoContainer.appendChild(todoItem);
+    });
+  }
 }
 
-customElements.define('todo-list', TodoList, { extends: 'ul' });
+customElements.define("todo-list-standard", TodoListStandard);

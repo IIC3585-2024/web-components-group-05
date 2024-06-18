@@ -15,7 +15,6 @@ export class PriceItem extends LitElement {
   }
 
   render() {
-    console.log(this.price);
     return html`
       <div class="priceCard">
         <h3 class="discountedPrice">
