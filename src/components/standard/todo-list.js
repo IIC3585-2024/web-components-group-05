@@ -36,6 +36,7 @@ export class TodoListStandard extends HTMLElement {
       }
     });
   }
+  
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "title") {
       this.shadowRoot.querySelector("h1").textContent = newValue || "Todo List";
@@ -60,22 +61,22 @@ export class TodoListStandard extends HTMLElement {
     const newTodo = { id: Date.now().toString(), text: todoText };
     todos.push(newTodo);
     this.setAttribute("items", JSON.stringify(todos));
-    this.renderTodos();
   }
 
   deleteTodo(id) {
     const todos = JSON.parse(this.getAttribute("items")) || [];
     const filteredTodos = todos.filter((todo) => todo.id !== id);
     this.setAttribute("items", JSON.stringify(filteredTodos));
-    this.renderTodos();
   }
 
   renderTodos() {
     const todos = JSON.parse(this.getAttribute("items")) || [];
     const todoContainer = this.shadowRoot.querySelector("#todos");
-    todoContainer.innerHTML = "";
 
-    todos.forEach((todo) => {
+    const currentIds = Array.from(this.shadowRoot.querySelectorAll("todo-item-standard"), item => item.getAttribute("id"));
+    const newTodos = todos.filter(todo => !currentIds.includes(todo.id.toString()));
+
+    newTodos.forEach((todo) => {
       const todoItem = document.createElement("todo-item-standard");
       todoItem.setAttribute("id", todo.id);
       todoItem.setAttribute("text", todo.text);
