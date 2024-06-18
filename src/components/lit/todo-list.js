@@ -1,6 +1,5 @@
-import { LitElement, html } from "lit-element";
+import { LitElement, html, css } from "lit-element";
 import "./todo-item.js";
-
 
 export class TodoItemListLit extends LitElement {
   static get properties() {
@@ -55,6 +54,14 @@ export class TodoItemListLit extends LitElement {
 
     const newTodo = { id: Date.now().toString(), text: todoText };
     this.items = [...this.items, newTodo];
+  }
+
+  static get styles() {
+    return css`
+      h1 {
+        color: #4C65FF;
+      }
+    `;
   }
 }
 

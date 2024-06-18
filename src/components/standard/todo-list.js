@@ -2,6 +2,11 @@ import "./todo-item.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
+    <style>
+      h1 {
+        color: #fff;
+      }
+    </style>
     <h1></h1>
     <div>
       <input type="text">
@@ -20,9 +25,11 @@ export class TodoListStandard extends HTMLElement {
   static get observedAttributes() {
     return ["items", "title", "prompt"];
   }
-  
+
   connectedCallback() {
-    this.shadowRoot.querySelector("button").addEventListener("click", () => this.addTodo());
+    this.shadowRoot
+      .querySelector("button")
+      .addEventListener("click", () => this.addTodo());
     this.shadowRoot.querySelector("input").addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         this.addTodo();
@@ -35,7 +42,8 @@ export class TodoListStandard extends HTMLElement {
     }
 
     if (name === "prompt") {
-      this.shadowRoot.querySelector("input").placeholder = newValue || "Enter a new todo";
+      this.shadowRoot.querySelector("input").placeholder =
+        newValue || "Enter a new todo";
     }
 
     if (name === "items") {
@@ -61,7 +69,6 @@ export class TodoListStandard extends HTMLElement {
     this.setAttribute("items", JSON.stringify(filteredTodos));
     this.renderTodos();
   }
-
 
   renderTodos() {
     const todos = JSON.parse(this.getAttribute("items")) || [];
