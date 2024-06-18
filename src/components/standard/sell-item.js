@@ -7,6 +7,7 @@ template.innerHTML = `
         .card {
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             height: 100%;
             background-color: #f4f4f4;
             border-radius: 10px;
@@ -23,12 +24,13 @@ template.innerHTML = `
         <img alt="Product Image">
         <title-item-standard></title-item-standard>
         <price-item-standard></price-item-standard>
+        <span></span>
     </div>
 `;
 
 export class SellItemStandard extends HTMLElement {
   static get observedAttributes() {
-    return ["name", "price", "discount", "image-url"];
+    return ["name", "price", "discount", "image-url", "rating"];
   }
 
   constructor() {
@@ -49,6 +51,9 @@ export class SellItemStandard extends HTMLElement {
     this.shadowRoot
       .querySelector("img")
       .setAttribute("src", this.getAttribute("image-url"));
+    this.shadowRoot.querySelector(
+      "span"
+    ).textContent = `⭐️ ${this.getAttribute("rating")}`;
   }
 }
 

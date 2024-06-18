@@ -32,6 +32,7 @@ export class ListStandard extends HTMLElement {
       listItem.setAttribute("price", item.price);
       listItem.setAttribute("discount", item.discount);
       listItem.setAttribute("image-url", item.imageUrl);
+      listItem.setAttribute("rating", item.rating);
       this.shadowRoot.appendChild(listItem);
     });
   }
