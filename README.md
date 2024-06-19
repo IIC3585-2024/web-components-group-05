@@ -21,3 +21,7 @@ npm run dev
 - [Bastian Marinkovic](https://github.com/BMarink512/)
 - [Ignacio Porte](https://github.com/IgnacioPorte)
 - [Maximiliano Torres](https://github.com/Maxi1805)
+
+## Herramientas utilizadas
+- Copilot
+- Chatgpt
