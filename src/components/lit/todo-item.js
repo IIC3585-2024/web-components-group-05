@@ -26,10 +26,6 @@ export class TodoItemLit extends LitElement {
   }
 
   deleteTodo() {
-    const event = new CustomEvent("delete-todo", {
-      detail: { id: this.id },
-    });
-    this.dispatchEvent(event);
     this.remove();
   }
 
